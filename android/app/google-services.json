@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:595100443437:android:2f20b58499b4acf48569a4",
         "android_client_info": {
-          "package_name": "com.example.workoutapp"
+          "package_name": "in.kiranmc.workoutapp"
         }
       },
       "oauth_client": [],

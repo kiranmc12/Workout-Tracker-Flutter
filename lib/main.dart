@@ -24,7 +24,6 @@ void main() async {
   final user = FirebaseAuth.instance.currentUser;
   if (user != null) {
     final userUid = user.uid;
-
     await Hive.openBox<CardioModel>(userUid);
   }
   runApp(const MyApp());
