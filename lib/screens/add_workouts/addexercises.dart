@@ -47,7 +47,7 @@ class _AddExerciseState extends State<AddExercise> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextFormField(
-                  keyboardType: TextInputType.number,
+                  keyboardType: TextInputType.name,
                   controller: exerciseNameController,
                   decoration: const InputDecoration(labelText: "Exercise Name"),
                   validator: (value) {
