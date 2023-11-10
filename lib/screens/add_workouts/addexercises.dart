@@ -74,6 +74,7 @@ class _AddExerciseState extends State<AddExercise> {
                         },
                       ),
                       TextFormField(
+                        keyboardType: TextInputType.number,
                         controller: repsControllers[i],
                         decoration: const InputDecoration(labelText: "Reps"),
                         validator: (value) {
@@ -111,6 +112,7 @@ class _AddExerciseState extends State<AddExercise> {
   void editExerciseDialog(BuildContext context, String id, String workoutName,
       String exerciseName, Map<String, dynamic> existingData) {
     exerciseNameController.text = exerciseName;
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
     for (int i = 0; i < 3; i++) {
       weightControllers[i].text = existingData['weights'][i];
@@ -123,31 +125,56 @@ class _AddExerciseState extends State<AddExercise> {
       builder: (context) => AlertDialog(
         title: const Text("Edit Exercise Data"),
         content: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextField(
-                controller: exerciseNameController,
-                decoration: const InputDecoration(labelText: "Exercise Name"),
-              ),
-              const SizedBox(height: 10),
-              for (int i = 0; i < 3; i++)
-                Column(
-                  children: [
-                    Text("Set ${i + 1}"),
-                    TextField(
-                      controller: weightControllers[i],
-                      decoration: const InputDecoration(labelText: "Weight"),
-                    ),
-                    TextField(
-                      controller: repsControllers[i],
-                      decoration: const InputDecoration(labelText: "Reps"),
-                    ),
-                    const SizedBox(height: 10),
-                  ],
+       
+          child: Form(
+            key: formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextFormField(
+                  keyboardType: TextInputType.name,
+                  controller: exerciseNameController,
+                  decoration: const InputDecoration(labelText: "Exercise Name"),
+                    validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Please enter a ExerciseName";
+                          }
+                          return null;
+                        }
                 ),
-            ],
+                const SizedBox(height: 10),
+                for (int i = 0; i < 3; i++)
+                  Column(
+                    children: [
+                      Text("Set ${i + 1}"),
+                      TextFormField(
+                        keyboardType: TextInputType.number,
+                        controller: weightControllers[i],
+                        decoration: const InputDecoration(labelText: "Weight"),
+                         validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Please enter a weight";
+                          }
+                          return null;
+                        },
+                      ),
+                      TextFormField(
+                        keyboardType: TextInputType.number,
+                        controller: repsControllers[i],
+                        decoration: const InputDecoration(labelText: "Reps"),
+                          validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Please enter reps";
+                          }
+                          return null;
+                        }
+                      ),
+                      const SizedBox(height: 10),
+                    ],
+                  ),
+              ],
+            ),
           ),
         ),
         actions: [
